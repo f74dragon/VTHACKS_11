@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign-In Page</title>
+    <title>Login</title>
     <style>
         body {
             margin: 0;
@@ -29,7 +29,7 @@
             flex: 2;
             height: 500px;
             padding: 30px;
-            background-color: rgba(215, 213, 213, 0.8);
+            background-color: rgba(239, 234, 255, 0.8);
             border-radius: 10px 0 0 10px;
             
             
@@ -65,7 +65,7 @@
             width: 100%;
             padding: 10px;
             margin: 10px 0;
-            background-color: #006600;
+            background-color: #d690c6;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -75,10 +75,12 @@
         }
 
         .login-container input[type="submit"]:hover {
-            background-color: #004400;
+            background-color: #ed5959;
             
         }
-
+        .fonttext {
+            font-size: large;
+        }
     </style>
 </head>
 <body>
@@ -94,6 +96,7 @@
                     <input type="text" placeholder="Username" required>
                     <input type="password" placeholder="Password" required>
                     <input type="submit" value="Login">
+                    <p style="font-size: large;">Don't have an account? <a href="signup.html">Create account</a></p>
                 </form>
             
         </div>
