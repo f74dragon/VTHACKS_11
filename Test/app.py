@@ -4,7 +4,7 @@ import openai
 app = Flask(__name__)
 
 # Initialize OpenAI API key and chat log
-openai.api_key = "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"
+openai.api_key = "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"
 chat_log = []
 chat_log.append({ "role": "system", "content": "Your name is Veronica. You are financial expert that helps people with financial decisions. They way you write is profesional, Classy, and smart." })
 @app.route('/')
