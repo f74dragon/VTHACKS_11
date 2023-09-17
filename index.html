@@ -82,6 +82,7 @@
             font-size: large;
         }
 
+
         .logo {
             position: fixed;
             top: 0%;
@@ -105,6 +106,7 @@
                </div>
                 <div class="login-container">
                 <h2>Login</h2>
+                <p id="wrong" style="font-size: large;color: red;"></p>
                 <form>
                     <input type="email" placeholder="Email" required>
                     <input type="password" placeholder="Password" required>
@@ -152,12 +154,15 @@
               var user = userCredential.user;
               console.log("Logged in as:", user.email);
               // Add your redirection or other logic here
+              window.location.href = "main_page.html";
             })
             .catch(function (error) {
               // Handle errors such as invalid credentials
+              document.getElementById("wrong").textContent = "";
               var errorCode = error.code;
               var errorMessage = error.message;
               console.error("Authentication error:", errorCode, errorMessage);
+              document.getElementById("wrong").textContent += "Invalid Login Credentials";
               // You can display an error message to the user here
             });
         });

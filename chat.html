@@ -5,36 +5,56 @@
     <title>Tuts+ Chat Application</title>
     <meta name="description" content="Tuts+ Chat Application" />
     <link rel="stylesheet" href="chat.css" />
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        // jQuery Document 
-        $(document).ready(function () {
-            // Function to handle form submission
-            $("form[name='message']").submit(function (event) {
-                // Prevent the default form submission
-                event.preventDefault();
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
 
-                // Get the user's message from the input field
-                var userMessage = $("#usermsg").val();
+    <script>
+        // Initialize Firebase with your configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDrJQcdwGklLlPDmXJw8jP7CInqZwVtnLI",
+            authDomain: "vthacks11-399205.firebaseapp.com",
+            projectId: "vthacks11-399205",
+            storageBucket: "vthacks11-399205.appspot.com",
+            messagingSenderId: "1084270193305",
+            appId: "1:1084270193305:web:41a64b275913cfb17ba608",
+            measurementId: "G-93C7BS1XFX"
+        };
 
-                // Check if the message is not empty
-                if (userMessage !== "") {
-                    // Append the message to the chat box
-                    $("#chatbox").append("<p>" + userMessage + "</p>");
+        firebase.initializeApp(firebaseConfig);
 
-                    // Clear the input field
-                    $("#usermsg").val("");
+        // Reference to the Firestore collection
+        const db = firebase.firestore();
+        const chatMessagesRef = db.collection("chatMessages");
 
-                    // Scroll to the bottom of the chat box
-                    scrollToBottom();
-                }
-            });
+        // Function to handle form submission
+        $("form[name='message']").submit(function (event) {
+            event.preventDefault();
 
-            // Function to scroll to the bottom of the chat box
-            function scrollToBottom() {
-                var chatbox = document.getElementById("chatbox");
-                chatbox.scrollTop = chatbox.scrollHeight;
+            const userMessage = $("#usermsg").val();
+
+            if (userMessage !== "") {
+                const timestamp = new Date().toISOString();
+
+                // Add the message to Firestore
+                chatMessagesRef.add({
+                    text: userMessage,
+                    timestamp: timestamp,
+                    sender: "User" // You can replace this with the actual sender's information
+                });
+
+                // Clear the input field
+                $("#usermsg").val("");
             }
+        });
+
+        // Real-time listener to display messages
+        chatMessagesRef.orderBy("timestamp").onSnapshot(snapshot => {
+            $("#chatbox").empty(); // Clear the chat box
+
+            snapshot.forEach(doc => {
+                const messageData = doc.data();
+                $("#chatbox").append("<p>" + messageData.sender + ": " + messageData.text + "</p>");
+            });
         });
     </script>
 </head>

@@ -116,7 +116,7 @@
                 <form>
                     <input type="email" placeholder="Email" required>
                     <input type="password" placeholder="Password" required>
-                    <input type="submit" value="Login">
+                    <input type="submit" value="Login"  >
                     <p style="font-size: large;">Don't have an account? <a href="signup.html">Create account</a></p>
                 </form>
             
@@ -159,6 +159,7 @@
               // Login successful, you can redirect or perform other actions here
               var user = userCredential.user;
               console.log("Logged in as:", user.email);
+              window.location.href = "main_page.html";
               // Add your redirection or other logic here
             })
             .catch(function (error) {
