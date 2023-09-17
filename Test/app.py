@@ -6,7 +6,7 @@ app = Flask(__name__)
 # Initialize OpenAI API key and chat log
 openai.api_key = "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"
 chat_log = []
-
+chat_log.append({ "role": "system", "content": "Your name is Veronica. You are financial expert that helps people with financial decisions. They way you write is profesional, Classy, and smart." })
 @app.route('/')
 def chat_page():
     return render_template('chat.html')
@@ -21,10 +21,10 @@ def chat():
         chat_log.append({"role": "user", "content": user_message})
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            messages=chat_log
+            messages= chat_log
         )
         assistant_response = response['choices'][0]['message']['content']
-        chat_log.append({"role": "assistant", "content": assistant_response})
+        chat_log.append( {"role": "assistant", "content": assistant_response})
 
         return assistant_response
 
