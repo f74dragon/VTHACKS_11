@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Chat Application</title>
+    <meta name="description" content="Financial Assitant" />
+    <link rel="stylesheet" href="chat.css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        // jQuery Document 
+        $(document).ready(function () {
+            // Function to handle form submission
+            $("form[name='message']").submit(function (event) {
+                // Prevent the default form submission
+                event.preventDefault();
+
+                // Get the user's message from the input field
+                var userMessage = $("#usermsg").val();
+
+                // Check if the message is not empty
+                if (userMessage !== "") {
+                    // Append the message to the chat box
+                    $("#chatbox").append("<p style=\"text-align: right;\">" + userMessage + "</p>");
+
+                    // Clear the input field
+                    $("#usermsg").val("");
+
+                    // Scroll to the bottom of the chat box
+                    scrollToBottom();
+                }
+            });
+
+            // Function to scroll to the bottom of the chat box
+            function scrollToBottom() {
+                var chatbox = document.getElementById("chatbox");
+                chatbox.scrollTop = chatbox.scrollHeight;
+            }
+        });
+    
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="menu">
+            <p class="welcome">Welcome, <b></b></p>
+            <p class="logout"><a id="exit" href="main_page.html">Exit Chat</a></p>
+        </div>
+        <div id="chatbox" class="chatbox"></div>
+        <form name="message" action="" method="post">
+            <input name="usermsg" type="text" id="usermsg" />
+            <button name="submitmsg" type="submit" id="submitmsg">Send</button>
+            <button><a id="exit" href="chat.html">Clear Chat</a></button>
+
+        </form>
+    </div>
+</body>
+</html>

@@ -2,9 +2,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="index.js" type="module"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"  http-equiv="refresh" content="0">
     <title>Login</title>
+    <script>
+        // Disable the back button
+
+      </script>
     <style>
         body {
             margin: 0;
@@ -166,8 +171,10 @@
               // You can display an error message to the user here
             });
         });
-      </script>
-      
+    </script>
+  {% if result %}
+  <div class="result">{{ result }}</div>
+  {% endif %}
 </body>
 
 </html>

@@ -1,20 +1,58 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import Head from "next/head";
+import { useState } from "react";
+import styles from "./index.module.css";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDrJQcdwGklLlPDmXJw8jP7CInqZwVtnLI",
-  authDomain: "vthacks11-399205.firebaseapp.com",
-  projectId: "vthacks11-399205",
-  storageBucket: "vthacks11-399205.appspot.com",
-  messagingSenderId: "1084270193305",
-  appId: "1:1084270193305:web:41a64b275913cfb17ba608",
-  measurementId: "G-93C7BS1XFX"
-};
+export default function Home() {
+  const [animalInput, setAnimalInput] = useState("");
+  const [result, setResult] = useState();
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+  async function onSubmit(event) {
+    event.preventDefault();
+    try {
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ animal: animalInput }),
+      });
+
+      const data = await response.json();
+      if (response.status !== 200) {
+        throw data.error || new Error(`Request failed with status ${response.status}`);
+      }
+      setResult(data.result);
+      setAnimalInput("");
+    } catch(error) {
+      // Consider implementing your own error handling logic here
+      console.error(error);
+      alert(error.message);
+    }
+  }
+  console.log(result);
+  return (
+    "YEs"
+/*     <div>
+      <Head>
+        <title>OpenAI Quickstart</title>
+        <link rel="icon" href="/dog.png" />
+      </Head>
+
+      <main className={styles.main}>
+        <img src="/dog.png" className={styles.icon} />
+        <h3>Name my pet</h3>
+        <form onSubmit={onSubmit}>
+          <input
+            type="text"
+            name="animal"
+            placeholder="Enter an animal"
+            value={animalInput}
+            onChange={(e) => setAnimalInput(e.target.value)}
+          />
+          <input type="submit" value="Generate names" />
+        </form>
+        <div className={styles.result}>{result}</div>
+      </main>
+    </div> */
+  );
+}
